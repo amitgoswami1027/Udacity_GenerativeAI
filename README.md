@@ -103,7 +103,6 @@ Fine-tuning: This is a technique in machine learning where an already trained mo
 
 ## Training Generative AI Models
 
-https://github.com/DrRuin/Lightweight-Fine-Tuning/blob/main/Lightweight-Fine-Tuning.ipynb
 
 ## Important Links
 * Read about CommonCrawl on its website: https://commoncrawl.org/
@@ -112,3 +111,4 @@ https://github.com/DrRuin/Lightweight-Fine-Tuning/blob/main/Lightweight-Fine-Tun
 * Read about the Gutenberg Project on its website: https://www.gutenberg.org/
 * Hugging face reference Tutorial: https://huggingface.co/docs/transformers/en/index
 * https://medium.com/@MUmarAmanat/fine-tune-llm-with-peft-60b2798f1e5f
+* https://medium.com/@dassum/fine-tune-large-language-model-llm-on-a-custom-dataset-with-qlora-fb60abdeba07
