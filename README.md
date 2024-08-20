@@ -111,4 +111,4 @@ https://github.com/DrRuin/Lightweight-Fine-Tuning/blob/main/Lightweight-Fine-Tun
 * Read about the Wikipedia dataset on its website: Wikimedia Downloads(opens in a new tab).
 * Read about the Gutenberg Project on its website: https://www.gutenberg.org/
 * Hugging face reference Tutorial: https://huggingface.co/docs/transformers/en/index
-* 
+* https://medium.com/@MUmarAmanat/fine-tune-llm-with-peft-60b2798f1e5f
