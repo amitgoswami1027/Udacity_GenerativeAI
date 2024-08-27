@@ -98,13 +98,68 @@ Adaptation in AI is a crucial step to enhance the capabilities of foundation mod
 
 Fine-tuning: This is a technique in machine learning where an already trained model is further trained (or tuned) on a new, typically smaller, dataset for better performance on a specific task.
 
+## Large Language Model Introduction
 
+![image](https://github.com/user-attachments/assets/ff1f01c4-0f0a-4c24-877e-fcf4d02d4b64)
 
+![image](https://github.com/user-attachments/assets/a64a5206-8222-4ac1-87bf-bfd2edad1db6)
+
+Sequence-to-sequence models can be used in NLP since we can think of text as a sequence.
+Recurrent neural networks, or RNNs, are a deep learning model that can work well for sequences by taking in one token at a time to produce a hidden state that condenses past information so it can be used further down the line.
+
+Disadvantages of RNNs include:
+The vanishing gradient problem where tokens earlier in the sequence are "forgotten"
+Long training and slow usage because of RNNs' sequential nature
+RNNs can be used as autoregressive models, which can generate new text indefinitely by feeding in input text and the newly generated tokens.
+
+Sampling techniques can adjust how tokens are chosen by the autoregressive model during text generation.
+
+### Temperature
+* Adjusts the randomness in choosing the next token
+### Top-k sampling
+* Samples from only the k most likely tokens
+### Nucleus or top-p sampling
+* Uses a dynamic cutoff for sampling the most likely tokens (cumulative probability is under p)
+### Beam search
+Considers the likelihood of strings of multiple tokens instead of just a single next token
+
+### Limitations of RNNs
+Recurrent neural networks (RNNs) were once the architecture of choice for many NLP tasks. However, they are limited because they can only keep track of a single hidden state (context vector), which creates an information bottleneck and causes gradual "forgetting" over long sequences.
+
+Long short-term memory (LSTM) models were developed to address the problem of gradual forgetting using a forget gate and an input gate. This manages the "memory" and "forgetting" more intentionally.
+
+LSTMs are not a complete solution for these challenges because they are still built on the underlying RNN architecture. This means that they still have information bottlenecks and can't use the built-in parallelism of GPUs.
+
+## ELMo
+Embeddings from Language Models (ELMo) built on LSTMs to create a new state-of-the-art in 2018. In particular, it was able to create contextual embeddings that could differentiate between the same word being used in different contexts.
+
+ELMo also introduced the large-scale pre-training that we see with modern LLMs.
+
+## Attention
+Attention was first applied to language models in 2014. Instead of relying on a single context vector, attention allowed the model to combine all of the encoder's hidden states to become its context vector.
+
+This raised the question: instead of trying to apply attention to RNNs, can we do better with just attention?
+
+### Attention Scores
+![image](https://github.com/user-attachments/assets/26af7e3f-ec61-4126-a435-00b96673b09c)
+
+## "Attention Is All You Need"?
+If self-attention is so powerful, can it replace RNNs altogether? Vaswani et al. (2017) argues that it can, with the right solutions in place to address its limitations.
+
+### Problem: lack of input order
+As previously described with ELMo, context is important for understanding the meaning of words.
+Self-attention doesn't understand this by default, so we add positional encodings as part of the input embeddings.
+### Problem: no nonlinearity between repeated self-attention layers
+The reason that we typically use an activation function like ReLU in a neural network layer, rather than just a linear output, is to enable to model to capture more complexity. Linear outputs can be reduced to a simple y=mx+b style formula.
+Self-attention layers don't have this nonlinearity by default, so we add a feed-forward network for each processed token afterward.
+### Problem: "cheating" when predicting a sequence
+The goal of a deep learning model is to be able to predict some unknown information given some known information. If all of the information is known, the model can't learn the relationships properly.
+By default, self-attention can look at all of the data, including the "future" that it is trying to predict. To prevent this, we mask attention on future words during decoding.
 
 ## Training Generative AI Models
 
 
-## Important Links
+## Important Resources
 * Read about CommonCrawl on its website: https://commoncrawl.org/
 * Read about the Github dataset on its website: https://www.githubarchive.org/
 * Read about the Wikipedia dataset on its website: Wikimedia Downloads(opens in a new tab).
@@ -112,3 +167,6 @@ Fine-tuning: This is a technique in machine learning where an already trained mo
 * Hugging face reference Tutorial: https://huggingface.co/docs/transformers/en/index
 * https://medium.com/@MUmarAmanat/fine-tune-llm-with-peft-60b2798f1e5f
 * https://medium.com/@dassum/fine-tune-large-language-model-llm-on-a-custom-dataset-with-qlora-fb60abdeba07
+* Audi GEN AI : https://www.audi-mediacenter.com/en/press-releases/reinventing-the-wheel-felgan-inspires-new-rim-designs-with-ai-15097
+* Synthetic dataset course: https://www.udacity.com/course/small-data--cd12528
+* 
