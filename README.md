@@ -156,6 +156,21 @@ Self-attention layers don't have this nonlinearity by default, so we add a feed-
 The goal of a deep learning model is to be able to predict some unknown information given some known information. If all of the information is known, the model can't learn the relationships properly.
 By default, self-attention can look at all of the data, including the "future" that it is trying to predict. To prevent this, we mask attention on future words during decoding.
 
+
+## "Attention Is All You Need"?
+If self-attention is so powerful, can it replace RNNs altogether? Vaswani et al. (2017) argues that it can, with the right solutions in place to address its limitations.
+
+### Problem: lack of input order
+As previously described with ELMo, context is important for understanding the meaning of words.
+Self-attention doesn't understand this by default, so we add positional encodings as part of the input embeddings.
+### Problem: no nonlinearity between repeated self-attention layers
+The reason that we typically use an activation function like ReLU in a neural network layer, rather than just a linear output, is to enable to model to capture more complexity. Linear outputs can be reduced to a simple y=mx+b
+y=mx+b style formula.
+Self-attention layers don't have this nonlinearity by default, so we add a feed-forward network for each processed token afterward.
+### Problem: "cheating" when predicting a sequence
+The goal of a deep learning model is to be able to predict some unknown information given some known information. If all of the information is known, the model can't learn the relationships properly.
+By default, self-attention can look at all of the data, including the "future" that it is trying to predict. To prevent this, we mask attention on future words during decoding.
+
 ## Training Generative AI Models
 
 
