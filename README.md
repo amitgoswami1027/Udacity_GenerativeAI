@@ -184,4 +184,6 @@ By default, self-attention can look at all of the data, including the "future" t
 * https://medium.com/@dassum/fine-tune-large-language-model-llm-on-a-custom-dataset-with-qlora-fb60abdeba07
 * Audi GEN AI : https://www.audi-mediacenter.com/en/press-releases/reinventing-the-wheel-felgan-inspires-new-rim-designs-with-ai-15097
 * Synthetic dataset course: https://www.udacity.com/course/small-data--cd12528
+* Attention to want you need : https://arxiv.org/abs/1706.03762
+* Transformer Illustration : https://jalammar.github.io/illustrated-transformer/
 * 
