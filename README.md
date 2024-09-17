@@ -13,21 +13,6 @@ The exciting world of training generative AI models is about teaching computers 
 ## Application of Generative AI
 The applications of Generative AI span a gamut of exciting fields, broadening creativity and innovation in content creation, product design, scientific inquiry, data enhancement, and personalized experiences. The power of Generative AI lies in its ability to imagine and refine with speed, offering solutions and opening doors to future inventions.
 
-## Building Generative AI Solutions
-Traditional machine learning models typically served one specific task and developers integrate the single-task AI capability into their applications, like identifying an anomaly in an x-ray with a computer vision model. Transformer architecture enables the development of generative AI models called foundation models that train on huge datasets. Unlike earlier deterministic models that just identified patterns or followed rules, these AI models can generate data.
-
-
-
-
-
-
-
-## Now it's your turn
-Can you find a question that the LLM cannot answer? Try to stump the LLM by asking it a question that you think it should be able to answer, but it cannot. Sometimes this can be hard, because the commercial LLM offerings are continually improving their models to handle different types of questions more gracefully, and often, if an LLM cannot answer a question, it will simply say something like "I don't know" or "I don't understand".
-
-Spend a few minutes finding a question that the LLM cannot answer. Then, write down the question and the LLM's response in the cell below.
-
-
  # What Is a Perceptron
  A perceptron is an essential component in the world of AI, acting as a binary classifier capable of deciding whether data, like an image, belongs to one class or another. It works by adjusting its weighted inputs—think of these like dials fine-tuning a radio signal—until it becomes better at predicting the right class for the data. This process is known as learning, and it shows us that even complex tasks start with small, simple steps.
 
@@ -172,7 +157,98 @@ Self-attention layers don't have this nonlinearity by default, so we add a feed-
 The goal of a deep learning model is to be able to predict some unknown information given some known information. If all of the information is known, the model can't learn the relationships properly.
 By default, self-attention can look at all of the data, including the "future" that it is trying to predict. To prevent this, we mask attention on future words during decoding.
 
-## Training Generative AI Models
+## Building Generative AI Solutions
+Traditional machine learning models typically served one specific task and developers integrate the single-task AI capability into their applications, like identifying an anomaly in an x-ray with a computer vision model. Transformer architecture enables the development of generative AI models called foundation models that train on huge datasets. Unlike earlier deterministic models that just identified patterns or followed rules, these AI models can generate data.
+
+![image](https://github.com/user-attachments/assets/d11e8c3e-f010-45d6-ac0c-1fc94c6d5404)
+
+These models handle multiple tasks and can be fine-tuned for specific ones. They generate new data like text, images, and music. Analysts estimate the market for generative AI to reach 200 billion by 2032. This means that the market is likely to double every two years for the upcoming decade.
+
+The technical foundation that enables generative AI is a layered stack made of three layers:
+
+### Infrastructure and Hardware Layer
+
+The infrastructure and hardware layer consists of the resources that are needed to train, fine-tune, and run generative models. This layer includes silicon customized for AI computation like GPUs, Google TPUs, as well as hyperscale compute. The massive computing power, inclusive of network and storage, is required for training and serving models. Cloud providers like Amazon, Microsoft, Google, and Baidu typically possess these infrastructure resources and send them to developers via cloud services. Generative AI service providers like Amazon, Cohere, and Google offer specialized model deployment services in this layer for developers to accelerate model deployment, security, monitoring, and testing.
+
+### Model and Platform Layer
+
+This layer encompasses the algorithms, architectures, neural networks, and machine learning models that generate content or make predictions. If you're a developer who wants to work with generative AI, it's essential to have an understanding of the underlying models you're working with, the data they're trained on, and the potential biases and limitations they have. We can interact with the model layer in many ways, using APIs to access pre-trained models in this layer like OpenAI GPT models, or we can take pre-trained foundation models and fine-tune them with additional training data. This is useful for adapting a generic model to perform specific tasks or work with niche datasets. There are also development kits and libraries that you can take advantage of in this layer, like TensorFlow, PyTorch, and Hugging Face Transformers, which provide tools for building and training generative models. Finally, this layer encompasses deploying models into production environments. This could involve serving the model via a web service or endpoint, embedding it in an application, or deploying it on edge devices.
+
+### Application layer
+
+User-facing B2B and B2C applications that use generative models reside in the topmost layer, the application layer. This layer enables developers and users to interact with the complex underlying models in a user-friendly way.
+
+The application layer is what end users see and interact with.
+It translates user inputs into model queries and converts model outputs into interpretable results for users. At this layer, we can build user-facing applications using APIs that communicate with models, query them, and fetch results.
+The application layer is dependent on the model layer for output to use in applications. Models often expect inputs in a specific format or structure, so application layer code is also responsible for formatting and transforming user inputs before they're fed into models.
+Generative models have the potential to produce output that can be harmful, misleading, or biased. The application layer needs mechanisms to detect and mitigate these issues, ensuring the ethical use of your applications and solutions.
+
+## The Problem with Generative Models
+As a developer, there are two challenges you'll commonly face when working with Generative models in your applications and solutions:
+** Unpredictable responses
+** Statelessness
+
+The only way we can interact with large language models is through natural language. That's it! You're probably used to writing programming functions that return reliable, reproducible results. These models work differently.
+Generative AI models are unpredictable, and you send them natural language input, called a prompt, and receive output called a response that might be what you expected, or not.
+* The same prompt might return different responses every time.
+* The prompt you send the model will affect the quality of the response.
+* The other problem you'll face using these models in development is their stateless nature. If you use the ChatGPT web or mobile application, it might appear like the model is keeping a history of your conversation and every time you send a prompt, the model is somehow adding it to a memory of the conversation you are having. This is an illusion.
+
+Every time you call the API to send a prompt to the model, it responds in isolation, only using the messages you've sent in that API call to generate a response.
+* These messages are called the context window of the model, and it's only so large.
+* Suppose you want to create a chatbot that has a conversation with the user. In that case, you'll need to send all the previous messages in the entire conversation in your API call, which gives the model context of the entire conversation in order to generate a response that appears to the user like the model is remembering the previous conversation messages.
+* At some point, you'll run out of context length in the unit of tokens to send the entire conversation, and you'll only be able to send the most recent messages
+Tools and techniques exist to deal with this issue from a development standpoint
+
+## Prompts and Prompt Engineering
+Prompting is a crucial aspect of interacting with models, especially with language models like OpenAI GPT models. Prompts are input statements or questions that are provided to a model to generate a desired output or response.
+
+The relationship between prompts and prompt engineering bridges both the model layer and the application layer.
+* Without well-engineered prompts, generative models can provide poor output, resulting in your application not working the way you envisioned it.
+* Code in the application layer often pre-processes or structures user input into effective prompts for the model.
+
+![image](https://github.com/user-attachments/assets/79819192-db62-484b-bc21-4951be6e3278)
+
+### Example: Let's consider an application that helps users identify potential illnesses based on symptoms they input. The user might input "I have a fever, cough, and tiredness."
+
+The application interface could also provide checkboxes or buttons for common symptoms to aid users.
+The raw input from the checkboxes the user checked will be too ambiguous for the model.
+Application logic must engineer a prompt based on the selected checkbox values ({fever}, {cough}, and {tiredness}).
+Code pre-processes the checkbox values into this prompt: "What are the potential illnesses associated with symptoms like {fever}, {cough}, and {tiredness}?" This is the prompt we send to the model.
+The model receives the engineered prompt and outputs a response based on its training. It might respond with "The symptoms of fever, cough, and tiredness can be associated with conditions like the flu or mononucleosis. It's essential to consult a healthcare professional for a definitive diagnosis."
+
+The application post-processes the model's response and displays it to the user in the application, perhaps providing links to more information about each one. It might add disclaimers or advise the user to consult a physician. In this example, prompt engineering in the application layer ensures that the model receives the most effective query to provide a relevant and valuable response.
+
+### Generative AI Solution Components
+Let's explore the components you'll be working with when you're designing and building applications that leverage generative AI models.
+* At the heart of your solutions are large language models for text generation or image generation models. Your application will be sending them prompts and receiving and processing their output.
+* The user interface is where users interact with the application. It's the bridge between users and AI models.
+* Application logic is the controller of the application. It processes user inputs, interacts with AI models, as well as parsing and managing the flow of data.
+* Databases can store user information and AI responses or be used alongside OpenAI functions or LangChain tools, or you can use them to fetch data to augment in RAG solutions. You might also have vector databases in your app for semantic search solutions.
+* APIs connect our application with external services and platforms. They allow our solution to communicate with other AI models or fetch data from other applications.
+
+  ![image](https://github.com/user-attachments/assets/88582578-bf01-4d49-b150-7cf07c934926)
+  
+
+### Evaluating, Versioning, and Auditing Output
+How do we know that the response from the model is not biased, toxic, leaking proprietary data, or will damage organizational reputation? There are several software libraries and products available to integrate into our applications that perform this important task.
+
+The initial input, the resulting prompt, and the corresponding response from the large language model can all be stored in a database. This historical record can be used for tracking user interactions, building history features, refining the AI model's performance, or providing audit trails.
+
+## ReAct Prompting for Agents
+A popular prompting method called ReAct can be used to create LLM-based agents. REACT prompt techniques use LLMs to generate both reasoning traces and task-specific actions.
+
+* The reasoning aspect involves the AI agent thinking through a problem, breaking it down into smaller, manageable parts, and forming a plan or series of steps to solve it.
+* The action component allows the agent to make decisions about gathering additional information relevant to the task.
+* The observation step often involves delivering a final response about a task or recording an event. These observations can be used for further reasoning. REACT-enabled agents actively seek out new information, update their understanding, and refine their reasoning based on observations.
+* A REACT prompt for a wellness agent might be:
+
+"Your goal is to improve the wellness of the user by interleaving thought, action, and observation."
+
+
+
+
+
 
 
 ## Important Resources
