@@ -9,17 +9,18 @@ The exciting world of training generative AI models is about teaching computers 
 ** Latent space decoding: Imagine if you had a map of all the possible images you could create, with each point on the map being a different image. Latent space decoding is like picking a point on that map and bringing the image at that point to life.
 
 ** Diffusion models: Diffusion models start with a picture that's full of random dots like TV static, and then they slowly clean it up, adding bits of the actual picture until it looks just like a real photo or painting.
+
 ## Application of Generative AI
 The applications of Generative AI span a gamut of exciting fields, broadening creativity and innovation in content creation, product design, scientific inquiry, data enhancement, and personalized experiences. The power of Generative AI lies in its ability to imagine and refine with speed, offering solutions and opening doors to future inventions.
-![image](https://github.com/user-attachments/assets/34eed4d5-f5ec-4b4e-a96b-4b481c8fb4fe)
 
-![image](https://github.com/user-attachments/assets/e5b2cb50-6f74-4847-9855-b51f3499f990)
+## Building Generative AI Solutions
+Traditional machine learning models typically served one specific task and developers integrate the single-task AI capability into their applications, like identifying an anomaly in an x-ray with a computer vision model. Transformer architecture enables the development of generative AI models called foundation models that train on huge datasets. Unlike earlier deterministic models that just identified patterns or followed rules, these AI models can generate data.
 
-![image](https://github.com/user-attachments/assets/90c94382-9bde-4f5d-94e0-80c3f7a7b688)
 
-![image](https://github.com/user-attachments/assets/3ea8771b-5f07-45d3-b736-9d5972a41625)
 
-![image](https://github.com/user-attachments/assets/69a17a2c-b31c-4eeb-8d3f-31028ebc32fd)
+
+
+
 
 ## Now it's your turn
 Can you find a question that the LLM cannot answer? Try to stump the LLM by asking it a question that you think it should be able to answer, but it cannot. Sometimes this can be hard, because the commercial LLM offerings are continually improving their models to handle different types of questions more gracefully, and often, if an LLM cannot answer a question, it will simply say something like "I don't know" or "I don't understand".
