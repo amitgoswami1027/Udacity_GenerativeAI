@@ -366,6 +366,86 @@ index = VectorstoreIndexCreator().from_loaders([loader])
 query = "Based on the reviews in the context, tell me what people liked about the picture quality"
 index.query(query)
 ```
+![image](https://github.com/user-attachments/assets/562424e3-09a9-4dc4-88e6-17ad48559aa8)
+
+Key Steps in the Process
+* 1. Document Loading - The first step involves loading data into the system using various loader components.
+* 2. Document Splitting - Documents are split into smaller chunks for more precise matching between user queries and document content.
+* 3. Embedding Transformation - Each document chunk is transformed into an embedding. Embeddings are numerical representations of text in a high-dimensional space, where similar meanings are placed close together.
+* 4. Vector Database Storage - Embeddings are stored in a vector database like ChromaDB, designed for high-dimensional vectors and semantic search operations.
+* 5. Semantic Search - This system uses ChromaDB to perform semantic searches, finding documents based on context and meaning.
+* 6. Question-Answering (QA) Chain - The system uses the output from the semantic search to contextualize and generate responses to queries, utilizing semantically relevant documents from the knowledge base.
+The interplay of character splitters, embeddings, and vector databases allows the system to mimic human context and nuance understanding.
+
+## Semantic Search using RAG
+```
+from langchain.document_loaders.csv_loader import CSVLoader
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.llms import OpenAI
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
+from langchain import LLMChain
+from langchain.chains.question_answering import load_qa_chain
+
+import os
+
+# TODO: initialize your LLM
+
+os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_BASE"] = "https://openai.vocareum.com/v1"
+
+# TODO: load your documents
+from langchain.indexes import VectorstoreIndexCreator
+from langchain.document_loaders.csv_loader import CSVLoader
+
+loader = CSVLoader(file_path='./tv-reviews.csv')
+docs = loader.load()
+print(docs)
+
+# TODO: use a Text Splitter to split the documents into chunks
+from langchain.prompts import PromptTemplate
+from langchain import LLMChain
+from langchain.llms import OpenAI
+
+model_name="gpt-3.5-turbo"
+temperature = 0
+llm = OpenAI(model_name=model_name, temperature=temperature, max_tokens = 2000)
+
+splitter = CharacterTextSplitter(chunk_size=1000,chunk_overlap=0)
+split_doc=splitter.split_documents(docs)
+
+# TODO: initialize your embeddings model
+embeddings = OpenAIEmbeddings()
+
+# TODO: populate your vector database with the chunks
+db = Chroma.from_documents(split_doc,embeddings)
+
+query = """
+    Based on the reviews in the context, tell me what people liked about the picture quality.
+    Make sure you do not paraphrase the reviews, and only use the information provided in the reviews.
+    """
+# find top 5 semantically similar documents to the query
+
+use_chain_helper = False
+if use_chain_helper:
+    rag = RetrievalQA.from_chain_type(llm=llm,chain_type="stuff",retriever=db.as_retriever())
+    print(rag.run(query))
+else:
+    similar_docs = db.similarity_search(query,k=5)
+    prompt = PromptTemplate(
+             template = "{query}\nContext : {context}",
+             input_variables = ["query","context"])
+
+chain = load_qa_chain(llm,prompt=prompt,chain_type="stuff")
+print(chain.run(input_documents=similar_docs, query=query))
+
+
+
+
+```
+
 
 ## Important Resources
 * Read about CommonCrawl on its website: https://commoncrawl.org/
