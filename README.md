@@ -219,6 +219,28 @@ The model receives the engineered prompt and outputs a response based on its tra
 
 The application post-processes the model's response and displays it to the user in the application, perhaps providing links to more information about each one. It might add disclaimers or advise the user to consult a physician. In this example, prompt engineering in the application layer ensures that the model receives the most effective query to provide a relevant and valuable response.
 
+### Generative AI Features and Solutions
+Generative models excel at understanding context, filtering relevant information, and synthesizing data into a coherent narrative. We can pass generative models the context behind user queries, enabling them to be effective in tasks like personalizing content recommendations or tailored responses in chatbots.
+
+* Tasks related to natural language processing or NLP become significantly more straightforward. These models can understand, generate, and even translate languages with high proficiency.
+* Products and tasks that use images or allow users to manipulate images can leverage generative image models. Integrating computer vision capabilities using generative models is significantly less work than using traditional AI models to accomplish the same tasks.
+
+Designing and developing features, applications, and solutions that leverage generative models is different than developing with traditional AI systems. Instead of just analyzing and predicting data, we can generate entirely new data that's coherent and contextually relevant. The capabilities of these models open up a realm of possibilities for you to create innovative applications.
+
+* New categories of applications: Generative AI models can draft articles, marketing copy, narrative or analytical content like reports. Consider applications like Canva, Lenza, or Writer.com. These applications are full-featured solutions for workflows that generate and modify texts, images, and specific types of content for users.
+* Natural conversation powered by large language models can handle customer queries, provide information, and engage users in conversation.
+* Retrieval augmented generation solutions, known as RAG, combine the ability of models to retrieve information from a database and document sources and then use that information to generate content and contextually relevant responses. You can use RAG to build applications that contain question-answering features, chatbots, document summarization and analysis, or content recommendations.
+
+It's also possible to fine-tune a generative model and build applications that use the model. This is when you train a generative model, like open-source models, on specific data to make it more suitable for niche tasks. Cloud providers also offer tools for fine-tuning and deploying models. In order to keep the data in fine-tuned models private.
+Existing applications, from content management systems to customer service platforms, can integrate generative AI features to enhance their offerings. For example, an e-commerce platform like Etsy or Wix can use generative AI to automatically draft product descriptions, answer customer queries, or build product web pages. Large software products like Microsoft Office and Google Workspace are integrating LLMs in word processing products or image generation models into presentation software products. Grammarly uses LLMs for an autosuggestion and feature to rewrite texts in its product.
+
+### Risks and Challenges
+* It's crucial to understand that these models provide outputs based on their training data, which doesn't guarantee correctness.
+* Generative models are trained on biased datasets, so they can produce outputs that perpetuate or amplify harmful stereotypes or prejudices, leading to skewed perceptions and discriminatory output. This can be an organizational risk if you're outputting biased content to users.
+* Developers and businesses should set up evaluation frameworks to assess the accuracy and relevance of the model outputs. Feedback loops where human reviewers can validate the model's responses can be beneficial.
+* Be transparent with users about the model's capabilities and limitations.
+* Costs involved with leveraging LLMs in your development. Be prepared for the cost of API calls, custom model hosting, and cloud services.
+
 ### Generative AI Solution Components
 Let's explore the components you'll be working with when you're designing and building applications that leverage generative AI models.
 * At the heart of your solutions are large language models for text generation or image generation models. Your application will be sending them prompts and receiving and processing their output.
@@ -245,11 +267,105 @@ A popular prompting method called ReAct can be used to create LLM-based agents. 
 
 "Your goal is to improve the wellness of the user by interleaving thought, action, and observation."
 
+### Implement a Chain of Thought Pattern
+Chain of Thought (CoT) reasoning is a technique for teaching LLMs to perform complex reasoning tasks by providing them with examples of how to break down a problem into smaller steps and solve them one by one. This is done by providing the LLM with a few-shot exemplar that outlines the reasoning process. The model is then expected to follow a similar chain of thought when answering the prompt.
 
+CoT reasoning is helpful to LLMs because it allows them to:
 
+** Understand and solve complex problems that would be difficult or impossible to solve with a single step. For example, a CoT-prompted LLM could be used to solve a math word problem by first identifying the relevant information in the problem, then performing the necessary calculations, and finally explaining the solution in a clear and concise way.
+** Generate more informative and transparent answers. By providing a step-by-step explanation of their reasoning, CoT-prompted LLMs can help users to understand how they arrived at their answer and to identify any potential errors in their logic. This is especially important for tasks where trust and accountability are critical, such as in healthcare or finance.
+** Improve their performance on a variety of reasoning tasks. CoT reasoning has been shown to improve the performance of LLMs on a wide range of tasks, including arithmetic, commonsense reasoning, symbolic reasoning, and code generation.
 
+### Programming with Langchain
+```
+from langchain.llms import OpenAI
 
+completion_model_name = "gpt-3.5-turbo-instruct"
+temperature = 0.0
+completion_llm = OpenAI(model_name=completion_model_name, temperature=temperature, max_tokens = 100)
 
+print("=== Completion Response ===")
+print(completion_llm("You're a whimsical tour guide to France. Paris is a "))
+
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
+
+chat_model_name = "gpt-3.5-turbo"
+temperature = 0.0
+chat_llm = ChatOpenAI(model_name=chat_model_name, temperature=temperature, max_tokens = 100)
+
+messages = [
+    SystemMessage(content="You are a French tour guide"),
+    HumanMessage(content="Describe Paris in a whimsical style")
+]
+
+print("=== Chat Response ===")
+print(chat_llm(messages))
+
+model_name = "gpt-3.5-turbo"
+temperature = 0.7
+llm = OpenAI(model_name=model_name, temperature=temperature, max_tokens = 500)
+
+output = llm("What is Paris?")
+print("=== Response ===")
+print(output)
+```
+
+### LLM Chain
+```
+from langchain.prompts import PromptTemplate
+from langchain import LLMChain
+from langchain.llms import OpenAI
+
+model_name="gpt-3.5-turbo"
+temperature = 1.2
+llm = OpenAI(model_name=model_name, temperature=temperature, max_tokens = 500)
+prompt_template = PromptTemplate.from_template(
+    """Act as Marvin, a robot from Douglas Adams' Hitchiker Guide. 
+       Tell me a {story_type} about the person described in context below.
+       Context: {context}"""
+)
+llm_chain = LLMChain(
+    prompt=prompt_template,
+    llm=llm
+)
+print("====OUTPUT=====\n")
+output = llm_chain({"story_type": "haiku", "context": "I'm a software engineer learning to use large language models"})
+print(output)
+print(output["text"])
+```
+## Retrieval Augmented Generation (RAG)
+Retrieval Augmented Generation (RAG), is a technique that enhances the capabilities of large language models (LLMs). RAG can integrate a company's data, like a knowledge base, with LLMs. This allows applications to leverage both the power of LLMs and the specific information contained in the company's own data.
+
+![image](https://github.com/user-attachments/assets/3f74da80-afb4-4f36-828e-7e18524e683c)
+
+How It Works
+* The process begins with a user query, which is used to search a vector database. Vector databases are used to store data. These databases are essential for adding additional, semantically relevant information to the LLM
+* The system then retrieves documents that are semantically closest to the query.
+* The retrieved documents are passed along with the original query to the LLM. This provides the LLM with extra context and up-to-date information, resulting in a more informed and accurate response.
+* Document transformers are used to prepare data by breaking it into smaller chunks. This is beneficial for indexing large documents and achieving a more precise match between the user's query and the document content.
+* Text Embedding Models convert document chunks into embeddings that capture the semantic meaning of the data.
+* Vector Storage is where the embeddings are stored, ready for retrieval.
+* Retrievers fetch the semantically relevant chunks for the LLM to process.
+The RAG system allows for efficient use of LLMs by not overwhelming them with data and ensures precise and accurate output.
+
+![image](https://github.com/user-attachments/assets/a96cd6ae-c182-4e50-8e2e-852c7cc49359)
+
+```
+from langchain.indexes import VectorstoreIndexCreator
+from langchain.document_loaders.csv_loader import CSVLoader
+
+loader = CSVLoader(file_path='./tv-reviews.csv')
+
+index = VectorstoreIndexCreator().from_loaders([loader])
+
+query = "Based on the reviews in the context, tell me what people liked about the picture quality"
+index.query(query)
+```
 
 ## Important Resources
 * Read about CommonCrawl on its website: https://commoncrawl.org/
