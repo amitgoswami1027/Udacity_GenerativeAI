@@ -84,6 +84,52 @@ Adaptation in AI is a crucial step to enhance the capabilities of foundation mod
 
 Fine-tuning: This is a technique in machine learning where an already trained model is further trained (or tuned) on a new, typically smaller, dataset for better performance on a specific task.
 
+## Using Probing to Train a Classifier
+Using probing to train a classifier is a powerful approach to tailor generative AI foundation models, like BERT, for specific applications. By adding a modestly-sized neural network, known as a classification head, to a foundation model, one can specialize in particular tasks such as sentiment analysis. This technique involves freezing the original model's parameters and only adjusting the classification head through training with labeled data. Ultimately, this process simplifies adapting sophisticated AI systems to our needs, providing a practical tool for developing efficient and targeted machine learning solutions.
+
+![image](https://github.com/user-attachments/assets/39983672-71a2-4d38-8ee7-4e5c1366616b)
+
+* Probing: This is a method of examining what information is contained in different parts of a machine learning model.
+* Linear Probing: A simple form of probing that involves attaching a linear classifier to a pre-trained model to adapt it to a new task without modifying the original model.
+* Classification Head: It is the part of a neural network that is tailored to classify input data into defined categories.
+
+## Fine-Tuning
+Fine-tuning is an important phase in enhancing the abilities of generative AI models, making them adept at specific tasks. By introducing additional data to these powerful models, they can be tailored to meet particular requirements, which is invaluable in making AI more effective and efficient. Although this process comes with its challenges, such as the need for significant computational resources and data, the outcome is a more specialized and capable AI system that can bring value to a wide range of applications.
+![image](https://github.com/user-attachments/assets/005af019-af79-43e2-b69c-ea9dd4efed08)
+
+* Fine-tuning: This is the process of adjusting a pre-trained model so it performs better on a new, similar task. It's like teaching an experienced doctor a new medical procedure; they're already a doctor, but they're improving their skills in a particular area.
+
+* Catastrophic Forgetting: This happens when a model learns something new but forgets what it learned before. Imagine if you crammed for a history test and did great, but then forgot most of what you learned when you started studying for a math test.
+
+## Parameter-Efficient Fine-Tuning
+Parameter-efficient fine-tuning (PEFT) is a technique crucial for adapting large language models more efficiently, with the bonus of not requiring heavy computational power. This approach includes various strategies to update only a small set of parameters, thereby maintaining a balance between model adaptability and resource consumption. The techniques ensure that models can be swiftly deployed in different industrial contexts, considering both time constraints and the necessity for scaling operations efficiently.
+
+### Technical Terms Explained:
+* Parameter-efficient fine-tuning: A method of updating a predefined subset of a model's parameters to tailor it to specific tasks, without the need to modify the entire model, thus saving computational resources.
+* Frozen Parameters: In the context of machine learning, this refers to model parameters that are not changed or updated during the process of training or fine-tuning.
+* Low-Rank Adaptation (LoRA): A technique where a large matrix is approximated using two smaller matrices, greatly reducing the number of parameters that need to be trained during fine-tuning.
+* Adapters: Additional model components inserted at various layers; only the parameters of these adapters are trained, not of the entire model.
+
+  ![image](https://github.com/user-attachments/assets/a4d3c9f7-50de-491b-b7d6-fbdffa61be4d)
+
+  ![image](https://github.com/user-attachments/assets/5f6676d3-7fc8-44ea-8970-1648abab9e24)
+
+  ![image](https://github.com/user-attachments/assets/73eb8079-41b1-4a98-9511-a12269d3925c)
+
+  ![image](https://github.com/user-attachments/assets/fde79b29-3a40-490c-80a9-c0e294aee20e)
+
+  ![image](https://github.com/user-attachments/assets/a8397371-5ecd-49d9-ab14-ecdd6dbe71f9)
+
+  ![image](https://github.com/user-attachments/assets/9da1f31a-aa78-4298-9c7f-a007d3990dae)
+
+  
+
+
+
+
+
+
+
 ## Large Language Model Introduction
 
 ![image](https://github.com/user-attachments/assets/ff1f01c4-0f0a-4c24-877e-fcf4d02d4b64)
